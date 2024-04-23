@@ -1,0 +1,59 @@
+* How to use this repo
+
+To reproduce [[https://github.com/org-roam/org-roam/issues/2425][roam#2425]] you need to do the following
+
+** 1. Get a local copy of these files
+
+Use 'git clone' or otherwise download the repo files and move it to /tmp/roam2425.
+
+It looks like this for me:
+
+#+begin_src bash
+  ls /tmp/roam2425
+#+end_src
+
+#+RESULTS:
+| README.org |
+| Roam       |
+| runme.sh   |
+
+You can alternately overwrite ROAMHOME in your shell, but you'll also need to edit the .emacs file. I don't recommend this.
+
+
+** 2. Run the runme.sh
+Optionally review the script for security, and then run it. It just checks the input file is not modified and then boots emacs with the cloned repo as its "home".
+This means emacs will load the .emacs file here instead of your own config
+
+** 3. Do the following, very carefully
+
+This bug is a bit nasty, so try not to do anything that isn't listed here on the inputs:
+  1. Wait for emacs to load all the packages from MELPA/ELPA and install roam
+  2. Hit SHIFT+TAB to run org-shifttab (or run M-x org-shifttab)
+  3. Observe that folding has occurred. *THIS IS CRITICAL TO REPRODUCING THE BUG*. /An unfolded entry will extract perfectly fine!/
+  4. Hit down twice and position on the only heading in the file. As in =cursor down=, =cursor down= or =C-n C-n=
+  5. Type =M-x o-r-e-s RET= to run org-roam-extract-subtree
+  6. Accept the default filename with =RET=.
+     - NOTE: Ensure that emacs /does not/ ask you to create the directory.
+       - If it asks to create the directory, it may extract /perfectly fine/.
+       - This is possibly due to a refresh where the now-saved buffer unfolds, and unfolded extractions work fine.
+  7. Type =C-x C-b= and navigate to your file
+  8. Observe that the contents that were in it are missing
+
+** 4. Bonus
+Feel free to test the bonus steps to show that the folding actually matters.
+Either repeat the flow above, skipping step =2.= *or*, if you are still in the test setting after presenting the bug, do the following
+  1. Navigate back to the original buffer
+  2. Undo with =C-_=
+  3. Ensure the heading is back and =unfolded= -- fully visible
+  4. Run =M-x o-r-e-s= again
+  5. Navigate to the second extraction
+
+Voila.
+The text has been successfully extracted, displaying that the folding is actually important.
+
+
+** 5. Other tests
+Still wonder what's causing it? Me too.
+
+That being said, if you remove the :PROPERTY: in the drawer, it also will copy just fine, folded or not.
+So it's something to do with a heading with a property that is /folded/.

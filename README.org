@@ -27,7 +27,7 @@ This means emacs will load the .emacs file here instead of your own config
 ** 3. Do the following, very carefully
 
 This bug is a bit nasty, so try not to do anything that isn't listed here on the inputs:
-  1. Wait for emacs to load all the packages from MELPA/ELPA and install roam
+  1. Wait for emacs to load all the packages from MELPA/ELPA to install org-roam
   2. Hit =SHIFT+TAB= to run =org-shifttab= (or run =M-x org-shifttab=)
   3. Observe that folding has occurred. *THIS IS CRITICAL TO REPRODUCING THE BUG*. /An unfolded entry will extract perfectly fine!/
   4. Hit down twice and position on the only heading in the file. As in =cursor down=, =cursor down= or =C-n C-n=

@@ -1,0 +1,8 @@
+#+TITLE: ROAM Bug 2425
+
+* Showing off The Bug
+:PROPERTIES:
+:ANYTHING:  Will crash it
+:END:
+
+There's some text here. After extraction, it'll disappear.

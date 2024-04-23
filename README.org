@@ -1,3 +1,7 @@
+* Known Affected Versions
+  * Emacs =29.3=
+  * Org-Roam =2.2.2=
+
 * How to use this repo
 
 To reproduce [[https://github.com/org-roam/org-roam/issues/2425][roam#2425]] you need to do the following
